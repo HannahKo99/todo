@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+</head>
+<body>
+    <!-- 雙向綁定 (x-model) -->
+    <div x-data="{message: 'hello'}" >
+        <input type="text" x-model="message" />
+        <input type="text" x-model="message" />
+        <span x-text="message" ></span>
+        <button disabled>click</button>
+    </div>
+    <hr/>
+    <div x-data="{message: ''}" >
+        <input type="text" x-model.trim="message" />
+        <button :disabled="message == ''" >click</button>
+        <!-- <button x-bind:disabled="message.trim() == ''" >click</button> -->
+    </div>
+</body>
+</html>
