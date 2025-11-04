@@ -25,19 +25,20 @@
       </div>
     </header>
 
-    <hr/>
+    <hr />
     <div x-data="{a: true}">
       <button x-on:click="a = !a">click</button>
-  <!--<button @click="a = !a">click</button>-->
+      <!--<button @click="a = !a">click</button>-->
       <span x-show="a">1000</span>
     </div>
-    <hr/>
-    
+    <hr />
+
     <main x-data="cp" class="px-6 todo-app main">
       <header>
         <nav class="navbar">
-          <a @click="gotoLogin" class="loginLink" href="#login">登入</a>
-          <a @click="gotoSignUp" class="signUpLink" href="#sign_up">註冊</a>
+          <a x-show="!isLogin" @click="gotoLogin" class="loginLink" href="#login">登入</a>
+          <a x-show="!isLogin" @click="gotoSignUp" class="signUpLink" href="#sign_up">註冊</a>
+          <a x-show="isLogin" @click="Logout" class="signUpLink" href="#">登出</a>
         </nav>
       </header>
 
@@ -49,20 +50,29 @@
             <div class="field">
               <label>
                 <h3>Email</h3>
-                <input type="email" id="loginEmail" autocomplete="email" spellcheck="false" placeholder="Email 信箱" />
+                <input x-model.trim="email" type="email" id="loginEmail" autocomplete="email" spellcheck="false" placeholder="Email 信箱" />
               </label>
             </div>
 
             <div class="field">
               <label>
                 <h3>密碼</h3>
-                <input type="password" id="loginPassword" autocomplete="current-password" spellcheck="false" placeholder="密碼，至少需要 6 個字" />
+                <input
+                  x-model.trim="password"
+                  type="password"
+                  id="loginPassword"
+                  autocomplete="current-password"
+                  spellcheck="false"
+                  placeholder="密碼，至少需要 6 個字"
+                />
               </label>
             </div>
 
             <div class="items-center justify-between block sm:flex field">
-              <button>登入</button>
-              <div class="text-xl text-gray-600">還沒有帳號嗎？<a @click="gotoSignUp" href="#" class="text-link signUpLink">註冊</a>一個吧！</div>
+              <button @click.prevent="doLogin">登入</button>
+              <div class="text-xl text-gray-600">
+                還沒有帳號嗎？<a @click="gotoSignUp" href="#" class="text-link signUpLink">註冊</a>一個吧！
+              </div>
             </div>
           </form>
         </section>
@@ -75,21 +85,42 @@
             <div class="field">
               <label>
                 <h3>Email</h3>
-                <input x-model.trim="email" type="email" id="signUpEmail" autocomplete="email" spellcheck="false" placeholder="Email 信箱" />
+                <input
+                  x-model.trim="email"
+                  type="email"
+                  id="signUpEmail"
+                  autocomplete="email"
+                  spellcheck="false"
+                  placeholder="Email 信箱"
+                />
               </label>
             </div>
 
             <div class="field">
               <label>
                 <h3>暱稱</h3>
-                <input x-model.trim="nickname" type="text" id="signUpNickname" autocomplete="name" spellcheck="false" placeholder="要怎麼稱呼你呢？" />
+                <input
+                  x-model.trim="nickname"
+                  type="text"
+                  id="signUpNickname"
+                  autocomplete="name"
+                  spellcheck="false"
+                  placeholder="要怎麼稱呼你呢？"
+                />
               </label>
             </div>
 
             <div class="field">
               <label>
                 <h3>密碼</h3>
-                <input x-model="password" type="password" id="signUpPassword" autocomplete="new-password" spellcheck="false" placeholder="密碼，至少需要 6 個字" />
+                <input
+                  x-model="password"
+                  type="password"
+                  id="signUpPassword"
+                  autocomplete="new-password"
+                  spellcheck="false"
+                  placeholder="密碼，至少需要 6 個字"
+                />
               </label>
             </div>
 
@@ -114,96 +145,6 @@
 
     <section class="todo-list">
       <ul class="items">
-        <!-- item start -->
-        <li>
-          <div class="item-content">
-            <label>
-              <input type="checkbox" />
-              <p class="content">我要學 Python</p>
-            </label>
-          </div>
-          <div class="item-control">
-            <a href="#" class="edit"><img class="icon" src="src/assets/pen-to-square-solid.svg" /></a>
-            <a href="#" class="delete"><img class="icon" src="src/assets/trash-can-solid.svg" /></a>
-          </div>
-        </li>
-        <!-- item end -->
-
-        <!-- item start -->
-        <li>
-          <div class="item-content">
-            <label>
-              <input type="checkbox" />
-              <p class="content">我要學 Ruby on Rails</p>
-            </label>
-          </div>
-          <div class="item-control">
-            <a href="#" class="edit"><img class="icon" src="src/assets/pen-to-square-solid.svg" /></a>
-            <a href="#" class="delete"><img class="icon" src="src/assets/trash-can-solid.svg" /></a>
-          </div>
-        </li>
-        <!-- item end -->
-
-        <!-- item start -->
-        <li class="completed">
-          <div class="item-content">
-            <label>
-              <input type="checkbox" checked />
-              <p class="content">我要學 Git</p>
-            </label>
-          </div>
-          <div class="item-control">
-            <a href="#" class="edit"><img class="icon" src="src/assets/pen-to-square-solid.svg" /></a>
-            <a href="#" class="delete"><img class="icon" src="src/assets/trash-can-solid.svg" /></a>
-          </div>
-        </li>
-        <!-- item end -->
-
-        <!-- item start -->
-        <li>
-          <div class="item-content">
-            <label>
-              <input type="checkbox" />
-              <p class="content">我要學 JavaScript</p>
-            </label>
-          </div>
-          <div class="item-control">
-            <a href="#" class="edit"><img class="icon" src="src/assets/pen-to-square-solid.svg" /></a>
-            <a href="#" class="delete"><img class="icon" src="src/assets/trash-can-solid.svg" /></a>
-          </div>
-        </li>
-        <!-- item end -->
-
-        <!-- item start -->
-        <li>
-          <div class="item-content">
-            <label>
-              <input type="checkbox" />
-              <p class="content">我要學 React</p>
-            </label>
-          </div>
-          <div class="item-control">
-            <a href="#" class="edit"><img class="icon" src="src/assets/pen-to-square-solid.svg" /></a>
-            <a href="#" class="delete"><img class="icon" src="src/assets/trash-can-solid.svg" /></a>
-          </div>
-        </li>
-        <!-- item end -->
-
-        <!-- item start -->
-        <li>
-          <div class="item-content">
-            <label>
-              <input type="checkbox" />
-              <p class="content">我要學 Vue</p>
-            </label>
-          </div>
-          <div class="item-control">
-            <a href="#" class="edit"><img class="icon" src="src/assets/pen-to-square-solid.svg" /></a>
-            <a href="#" class="delete"><img class="icon" src="src/assets/trash-can-solid.svg" /></a>
-          </div>
-        </li>
-        <!-- item end -->
-
         <!-- item start -->
         <li class="completed">
           <div class="item-content">
