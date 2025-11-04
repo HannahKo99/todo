@@ -50,7 +50,7 @@ function changePage() {
             
           if (token) {
             localStorage.setItem("todoToken", token)
-            // this.isLogin = true
+            this.isLogin = true
           }
           this.resetForm()
           this.gotoTask()
