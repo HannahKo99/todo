@@ -12,16 +12,15 @@ function changePage() {
       console.log("init")
 
       const token = localStorage.getItem("todoToken")
-
       if (token) {
         this.isLogin = true
       }
 
       if (this.isLogin) {
-        console.log(this.isLogin);
+        console.log(this.isLogin)
 
         this.gotoTask()
-      } else {        
+      } else {
         this.gotoSignUp()
       }
     },
@@ -44,10 +43,8 @@ function changePage() {
         }
 
         try {
-          const resp = await axios.post("https://todoo.5xcamp.us/users/sign_in", userData)
           const token = resp.headers.authorization
-            console.log(resp);
-            
+
           if (token) {
             localStorage.setItem("todoToken", token)
             this.isLogin = true
